@@ -7,29 +7,45 @@ import math
 
 ### PART 1: SEARCHING UNSORTED LISTS
 
+def iterate(f, x, a):   # did not change. just moved above isearch otherwise Python complains. 
+    # print('iterate: calling %s x=%s a=%s' % (f.__name__, x, a))     # TODO: rmv before turning in
+    # done. do not change me.
+    if len(a) == 0:
+        return x
+    else:
+        return iterate(f, f(x, a[0]), a[1:])
+    #
+# iterate
+    
 # search an unordered list L for a key x using iterate
 def isearch(L, x):
-    ###TODO
-    ###
+    ###TODO >>> see if curr_element == x: return True; else iterate rest of list
+
+    # define some base case esque function
+    def check(key, element):
+        if element==key[1]:
+            return (True, key[1])
+        else:
+            return key
+        #
+    #
+
+    return iterate(check, (False, x), L)[0]
+# isearch
 
 def test_isearch():
     assert isearch([1, 3, 5, 4, 2, 9, 7], 2) == (2 in [1, 3, 5, 4, 2, 9, 7])
     assert isearch([1, 3, 5, 2, 9, 7], 7) == (7 in [1, 3, 5, 2, 9, 7])
     assert isearch([1, 3, 5, 2, 9, 7], 99) == (99 in [1, 3, 5, 2, 9, 7])
     assert isearch([], 2) == (2 in [1, 3, 5])
-
-
-def iterate(f, x, a):
-    # done. do not change me.
-    if len(a) == 0:
-        return x
-    else:
-        return iterate(f, f(x, a[0]), a[1:])
+#
+test_isearch()
 
 # search an unordered list L for a key x using reduce
 def rsearch(L, x):
     ###TODO
     ###
+    pass
 
 def test_rsearch():
     assert rsearch([1, 3, 5, 4, 2, 9, 7], 2) == (2 in [1, 3, 5, 4, 2, 9, 7])
