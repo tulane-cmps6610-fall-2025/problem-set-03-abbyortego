@@ -8,7 +8,7 @@ import math
 ### PART 1: SEARCHING UNSORTED LISTS
 
 def iterate(f, x, a):   # did not change. just moved above isearch otherwise Python complains. 
-    # print('iterate: calling %s x=%s a=%s' % (f.__name__, x, a))     # TODO: rmv before turning in
+    print('iterate: calling %s x=%s a=%s' % (f.__name__, x, a))     # TODO: rmv before turning in
     # done. do not change me.
     if len(a) == 0:
         return x
@@ -16,12 +16,11 @@ def iterate(f, x, a):   # did not change. just moved above isearch otherwise Pyt
         return iterate(f, f(x, a[0]), a[1:])
     #
 # iterate
-    
+
 # search an unordered list L for a key x using iterate
 def isearch(L, x):
-    ###TODO >>> see if curr_element == x: return True; else iterate rest of list
+    # TODO >>> see if curr_element == x: return True; else iterate rest of list
 
-    # define some base case esque function
     def check(key, element):
         if element==key[1]:
             return (True, key[1])
@@ -30,7 +29,7 @@ def isearch(L, x):
         #
     #
 
-    return iterate(check, (False, x), L)[0]
+    return iterate(check, (False, x), L)[0] # NOTE: is this allowed? 
 # isearch
 
 def test_isearch():
