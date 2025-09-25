@@ -42,7 +42,7 @@ def test_isearch():
 
 
 def reduce(f, id_, a):
-    print('reduce: calling %s id=%s a=%s' % (f.__name__, id_, a))     # TODO: rmv before turning in
+    # print('reduce: calling %s id=%s a=%s' % (f.__name__, id_, a))     # TODO: rmv before turning in
     # done. do not change me.
     if len(a) == 0:
         return id_
@@ -84,7 +84,7 @@ def test_rsearch():
     assert rsearch([1, 3, 5, 2, 9, 7], 99) == (99 in [1, 3, 5, 2, 9, 7])
     assert rsearch([], 2) == (2 in [1, 3, 5])
 # test_rsearch
-test_rsearch()
+# test_rsearch()
 
 
 
@@ -97,7 +97,6 @@ def ureduce(f, id_, a):
         # can call these in parallel
         return f(reduce(f, id_, a[:len(a)//3]),
                  reduce(f, id_, a[len(a)//3:]))
-
 
 
 
