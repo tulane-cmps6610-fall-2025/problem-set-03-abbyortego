@@ -7,8 +7,8 @@ import math
 
 ### PART 1: SEARCHING UNSORTED LISTS
 
-def iterate(f, x, a):   # did not change. just moved above isearch otherwise Python complains. 
-    print('iterate: calling %s x=%s a=%s' % (f.__name__, x, a))     # TODO: rmv before turning in
+def iterate(f, x, a): 
+    # print('iterate: calling %s x=%s a=%s' % (f.__name__, x, a))     # TODO: rmv before turning in
     # done. do not change me.
     if len(a) == 0:
         return x
@@ -19,7 +19,6 @@ def iterate(f, x, a):   # did not change. just moved above isearch otherwise Pyt
 
 # search an unordered list L for a key x using iterate
 def isearch(L, x):
-    # TODO >>> see if curr_element == x: return True; else iterate rest of list
 
     def check(key, element):
         if element==key[1]:
@@ -37,23 +36,13 @@ def test_isearch():
     assert isearch([1, 3, 5, 2, 9, 7], 7) == (7 in [1, 3, 5, 2, 9, 7])
     assert isearch([1, 3, 5, 2, 9, 7], 99) == (99 in [1, 3, 5, 2, 9, 7])
     assert isearch([], 2) == (2 in [1, 3, 5])
-#
-test_isearch()
+# test_isearch
+# test_isearch()
 
-# search an unordered list L for a key x using reduce
-def rsearch(L, x):
-    ###TODO
-    ###
-    pass
 
-def test_rsearch():
-    assert rsearch([1, 3, 5, 4, 2, 9, 7], 2) == (2 in [1, 3, 5, 4, 2, 9, 7])
-    assert rsearch([1, 3, 5, 2, 9, 7], 7) == (7 in [1, 3, 5, 2, 9, 7])
-    assert rsearch([1, 3, 5, 2, 9, 7], 99) == (99 in [1, 3, 5, 2, 9, 7])
-    assert rsearch([], 2) == (2 in [1, 3, 5])
 
 def reduce(f, id_, a):
-    print(a)
+    print('reduce: calling %s id=%s a=%s' % (f.__name__, id_, a))     # TODO: rmv before turning in
     # done. do not change me.
     if len(a) == 0:
         return id_
@@ -64,6 +53,40 @@ def reduce(f, id_, a):
         res = f(reduce(f, id_, a[:len(a)//2]),
                  reduce(f, id_, a[len(a)//2:]))
         return res
+    #
+# reduce
+
+# search an unordered list L for a key x using reduce
+def rsearch(L, x):
+    def check(key, element):
+        # print('check: calling key=%s element=%s' % (key, element))
+        if key is True or element is True:
+            # print(f"{key} is True OR {element} is True")
+            return True
+        elif key==x:
+            # print(f"{key} is {x}")
+            return True
+        elif element==x:
+            # print(f"{key} is {element}")
+            return True
+        else:
+            # print(f"{key} and {element} is False OR {key} and {element} is not {x}")
+            return False
+        #
+    #
+
+    return reduce(check, False, L) # NOTE: is this allowed? 
+# research
+
+def test_rsearch():
+    assert rsearch([1, 3, 5, 4, 2, 9, 7], 2) == (2 in [1, 3, 5, 4, 2, 9, 7])
+    assert rsearch([1, 3, 5, 2, 9, 7], 7) == (7 in [1, 3, 5, 2, 9, 7])
+    assert rsearch([1, 3, 5, 2, 9, 7], 99) == (99 in [1, 3, 5, 2, 9, 7])
+    assert rsearch([], 2) == (2 in [1, 3, 5])
+# test_rsearch
+test_rsearch()
+
+
 
 def ureduce(f, id_, a):
     if len(a) == 0:
