@@ -42,7 +42,7 @@ def test_isearch():
 
 
 def reduce(f, id_, a):
-    print('reduce: calling %s id=%s a=%s' % (f.__name__, id_, a))     # TODO: rmv before turning in
+    # print('reduce: calling %s id=%s a=%s' % (f.__name__, id_, a))     # TODO: rmv before turning in
     # done. do not change me.
     if len(a) == 0:
         return id_
@@ -178,13 +178,15 @@ def parens_match_scan(mylist):
     False
     
     """
-    numeric = list(map(paren_map, mylist)) # O(n)
-    # print(test)
+    numeric = list(map(paren_map, mylist))  # O(n)
 
-    res = scan(min_f, 0, numeric)
-    print(res)
+    # calc prefix sums to see parenthesis pairing at each iteration
+    numeric_psum = scan(plus, 0, numeric)   # O(n) >>> if the fast version
 
-    return res[1]==0
+    # find the min, if prefix sums(!) ever dipped below -1 we got a mismatched parenthesis
+    min_psum = scan(min_f, 0, numeric_psum[0])      # O(n) >>> if the fast version
+
+    return min_psum[1]==0
 
 def scan(f, id_, a):
     """
@@ -193,15 +195,9 @@ def scan(f, id_, a):
     We saw a more efficient version in class. You can assume
     the more efficient version is used for analyzing work/span.
     """
-    print('scan: calling %s id=%s a=%s' % (f.__name__, id_, a))
-    res_1 = [reduce(f, id_, a[:i+1]) for i in range(len(a))]
-    print(res_1)
-
-    res_2 = reduce(f, id_, a)
-    print(res_2)
     return (
-        res_1,
-        res_2
+        [reduce(f, id_, a[:i+1]) for i in range(len(a))],
+        reduce(f, id_, a)
     )
 
 def paren_map(x):
@@ -225,6 +221,10 @@ def paren_map(x):
         return -1
     else:
         return 0
+
+def plus(x,y):
+    return x + y
+# plus
 
 def min_f(x,y):
     """
