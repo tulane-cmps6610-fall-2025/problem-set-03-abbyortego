@@ -119,10 +119,8 @@ def parens_match_iterative(mylist):
     >>>parens_match_iterative(['('])
     False
     """
-    ### TODO
     return iterate(parens_update, 0, mylist) == 0
-    ###
-
+# parens_match_iterative
 
 def parens_update(current_output, next_input):
     """
@@ -136,9 +134,16 @@ def parens_update(current_output, next_input):
     Returns:
       the updated value of `current_output`
     """
-    ###TODO
-    ###
-
+    if current_output == -1:    # going below 0 means we have a closing paren before an opening one
+        return current_output
+    elif next_input=='(':
+        return current_output + 1
+    elif next_input==')':
+        return current_output - 1
+    else:
+        return current_output
+    #
+# parens_update
 
 def test_parens_match_iterative():
     assert parens_match_iterative(['(', ')']) == True
@@ -149,6 +154,8 @@ def test_parens_match_iterative():
     assert parens_match_iterative(['(', '(', ')']) == False
     assert parens_match_iterative(['(', 'a', ')', ')', '(']) == False
     assert parens_match_iterative([]) == True
+# test_parens_match_iterative
+test_parens_match_iterative()
 
 
 #### Scan solution
