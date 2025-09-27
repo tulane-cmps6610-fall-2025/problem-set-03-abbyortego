@@ -90,9 +90,13 @@ Place all written answers from `problemset-03.md` here for easier grading.
 
 
 - **3d.**
+    - The **work** recurrence is $W(n) = W(\frac{n}{2}) + n$
+        - Applying `paren_map` to each item in the sequence using `map` costs $n$ since its scales with input size
+        - The optimal version of scan costs $W(\frac{n}{2})$
 
-
-
+    - The **span** recurrence is $W(n) = W(\frac{n}{2}) + 1$
+        - Applying `paren_map` to each item in the sequence using `map` costs $1$ if the `paren_map` function would get applied to each item simultaneously
+        - The optimal version of scan still costs $W(\frac{n}{2})$
 
 
 - **3f.**

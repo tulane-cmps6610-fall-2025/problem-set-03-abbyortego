@@ -42,7 +42,7 @@ def test_isearch():
 
 
 def reduce(f, id_, a):
-    # print('reduce: calling %s id=%s a=%s' % (f.__name__, id_, a))     # TODO: rmv before turning in
+    print('reduce: calling %s id=%s a=%s' % (f.__name__, id_, a))     # TODO: rmv before turning in
     # done. do not change me.
     if len(a) == 0:
         return id_
@@ -158,6 +158,7 @@ def test_parens_match_iterative():
 test_parens_match_iterative()
 
 
+
 #### Scan solution
 
 def parens_match_scan(mylist):
@@ -177,8 +178,13 @@ def parens_match_scan(mylist):
     False
     
     """
-    ###TODO
-    ###
+    numeric = list(map(paren_map, mylist)) # O(n)
+    # print(test)
+
+    res = scan(min_f, 0, numeric)
+    print(res)
+
+    return res[1]==0
 
 def scan(f, id_, a):
     """
@@ -187,10 +193,16 @@ def scan(f, id_, a):
     We saw a more efficient version in class. You can assume
     the more efficient version is used for analyzing work/span.
     """
+    print('scan: calling %s id=%s a=%s' % (f.__name__, id_, a))
+    res_1 = [reduce(f, id_, a[:i+1]) for i in range(len(a))]
+    print(res_1)
+
+    res_2 = reduce(f, id_, a)
+    print(res_2)
     return (
-            [reduce(f, id_, a[:i+1]) for i in range(len(a))],
-             reduce(f, id_, a)
-           )
+        res_1,
+        res_2
+    )
 
 def paren_map(x):
     """
@@ -231,6 +243,10 @@ def test_parens_match_scan():
     assert parens_match_scan(['(', '(', ')']) == False
     assert parens_match_scan(['(', 'a', ')', ')', '(']) == False
     assert parens_match_scan([]) == True
+# test_parens_match_scan
+test_parens_match_scan()
+
+
 
 #### Divide and conquer solution
 
