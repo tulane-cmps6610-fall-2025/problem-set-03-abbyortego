@@ -104,4 +104,13 @@ Place all written answers from `problemset-03.md` here for easier grading.
 
 
 - **3f.**
-
+    - The **work** recurrence is:
+        - the base cases cost $1$ since they take constant time 
+        - in the recursive case, computing the left and right side costs $2W(\frac{n}{2})$
+        - in the recursive case, combining the left and right side cost $1$ since it can be done in constant time
+        - $W(n) = 1 + 2W(\frac{n}{2}) + 1 = 2W(\frac{n}{2}) + 2$
+    - The **span** recurrence is:
+        - the base cases cost $1$ since they take constant time 
+        - in the recursive case, computing the left and right side costs $S(\frac{n}{2})$ since the two can be computed at the same time
+        - in the recursive case, combining the left and right side cost $1$ since it can be done in constant time
+        - $S(n) = 1 + S(\frac{n}{2}) + 1 = S(\frac{n}{2}) + 2$
