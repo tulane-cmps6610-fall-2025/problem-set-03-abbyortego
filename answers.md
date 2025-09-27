@@ -90,15 +90,15 @@ Place all written answers from `problemset-03.md` here for easier grading.
 
 
 - **3d.**
-    - The **work** recurrence is:
-        - `map` takes $W(n-1)$ work since the function is applied to 1 less item each time it's called
-        - `scan` for prefix sums takes $W(\frac{n}{2}) + n$ work since `reduce` divides the input in two and the partial sums take $n$
-        - `scan` for finding the minimum takes $W(\frac{n}{2}) + n$ work, as well, since `reduce` divides the input in two and the partial minimums take $n$
-        - $W(n) = W(n-1) + 2W(\frac{n}{2}) + 2n$
+    - The **work** recurrence of `parens_match_scan` is:
+        - `map` costs $W(n-1)$ since the function is applied to 1 less item each time it's called
+        - `scan` for prefix sums costs $2W(\frac{n}{2}) + n$ since `reduce` is called 2 times on $\frac{n}{2}$ sized inputs and computing the sums cost $n$
+        - `scan` for finding the minimum cost $2W(\frac{n}{2}) + n$ since `reduce` is called 2 times on $\frac{n}{2}$ sized inputs and finding the minimums cost $n$
+        - $W(n) = W(n-1) + 4W(\frac{n}{2}) + 2n$
     - The **span** recurrence is:
-        - `map` takes $1$ work since the function can be applied to the items simultaneously 
-        - `scan` for prefix sums takes $S(\frac{n}{2}) + 1$ work since `reduce` divides the input in two and the partial sums can be computed at once in constant time
-        - `scan` for finding the minimum takes $S(\frac{n}{2}) + 1$ work, as well, since `reduce` divides the input in two and the partial minimums can be computed at once in constant time
+        - `map` cost $1$ since the function can be applied to the items simultaneously 
+        - `scan` for prefix sums cost $S(\frac{n}{2}) + 1$ since `reduce` can be called on $\frac{n}{2}$ sized inputs at the same time and the sums can be computed at the same time
+        - `scan` for finding the minimum costs $S(\frac{n}{2}) + 1$ work, as well, since `reduce` can be called on $\frac{n}{2}$ sized inputs at the same time and the minimums can be found at the same time
         - $S(n) = 1 + 2S(\frac{n}{2}) + 2 = 2S(\frac{n}{2}) + 3$
             - The two $S(\frac{n}{2})$ cannot be removed since the `scan` for prefix sums and the `scan` for minimums cannot be done at the same time. 
 
