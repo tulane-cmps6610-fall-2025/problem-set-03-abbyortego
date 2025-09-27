@@ -244,7 +244,7 @@ def test_parens_match_scan():
     assert parens_match_scan(['(', 'a', ')', ')', '(']) == False
     assert parens_match_scan([]) == True
 # test_parens_match_scan
-test_parens_match_scan()
+# test_parens_match_scan()
 
 
 
@@ -271,16 +271,49 @@ def parens_match_dc_helper(mylist):
       L is the number of unmatched left parentheses. This output is used by 
       parens_match_dc to return the final True or False value
     """
-    ###TODO
     # base cases
-    
+    if len(mylist) == 0:
+        return [0, 0]
+    elif len(mylist) == 1:
+        if mylist[0] == '(':
+            return [0, 1]
+        elif mylist[0] == ')':
+            return [1, 0]
+        else:
+            return [0, 0]
+        #
     # recursive case
-    # - first solve subproblems
-    
-    # - then compute the solution (R,L) using these solutions, in constant time.
-    
-    ###
-    
+    else:
+        # - first solve subproblems
+        left_side, right_side = [parens_match_dc_helper(mylist[:len(mylist)//2]), parens_match_dc_helper(mylist[len(mylist)//2:])]
+
+        # - then compute the solution (R,L) using these solutions, in constant time.
+        # equal number of left paren on left side and right paren on right side >>> whatever's left over
+        if left_side[1] == right_side[0]:
+            
+            return [
+                left_side[0],    # new grand total of right paren: number of right paren on left side
+                right_side[1]    # new grand total of left paren: number of left paren on right side
+            ]
+        #
+        # more left paren on left side than right paren on right side
+        elif left_side[1] > right_side[0]:
+
+            return [
+                left_side[0],     # new grand total of right paren: number of right paren on left side
+                (left_side[1]+right_side[1]) - right_side[0]       # new grand total of left paren: number of left paren on left side + number of left paren on right side then account for right parens on right side
+            ]
+        #
+        # less left paren on left side than right paren on the right side
+        elif left_side[1] < right_side[0]:
+
+            return [
+                (left_side[0] + right_side[0]) - left_side[1],     # the new grand total of right paren: number of right paren on left side + number of right paren on the right side then accoutn for left paren on left side
+                right_side[1]        # the new grand total of left paren: number of left paren on right side
+            ]
+        #
+    #
+# parens_match_dc    
 
 def test_parens_match_dc():
     assert parens_match_dc(['(', ')']) == True
@@ -291,3 +324,5 @@ def test_parens_match_dc():
     assert parens_match_dc(['(', '(', ')']) == False
     assert parens_match_dc(['(', 'a', ')', ')', '(']) == False
     assert parens_match_dc([]) == True 
+# test_parens_match_dc
+test_parens_match_dc()
