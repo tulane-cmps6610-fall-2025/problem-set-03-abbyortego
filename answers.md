@@ -16,26 +16,26 @@ Place all written answers from `problemset-03.md` here for easier grading.
             - $C\texttt{(Root)} = 1$
             - $C\texttt{(1st Level)} = W(n-2) + 1 + 1$
             - Cost is neither increasing nor decreasing so this is balanced. Number of levels is $n$ and the max cost per level is $1$.
-        - Therefore, the work of `iterate` is $\mathcal{O}(n)$
+        - Therefore, the work is $\mathcal{O}(n)$
     - The **span** of `isearch`:
-        - Similar to above, **Span** can also be expressed as a recurrence. This approach cannot be parallelized so it will produce the same recurrence as above, $W(n) = W(n-1) + 1$. 
+        - Similar to above, span can also be expressed as a recurrence. This approach cannot be parallelized so it will produce the same recurrence as above, $S(n) = S(n-1) + 1$. 
         - Solving the recurrence...
             - $C\texttt{(Root)} = 1$
-            - $C\texttt{(1st Level)} = W(n-2) + 1 + 1$
+            - $C\texttt{(1st Level)} = S(n-2) + 1 + 1$
             - Cost is neither increasing nor decreasing so this is balanced. Number of levels is $n$ and the max cost per level is $1$.
-        - Therefore, the span of `iterate` is also $\mathcal{O}(n)$
+        - Therefore, the span is also $\mathcal{O}(n)$
 
 
 - **1d.**
     - The **work** of `rsearh`: 
-        - Since `reduce` is called recursively its **work** can best be expressed as a recurrence, $W(n) = 2W(\frac{n}{2}) + 1$
+        - Since `reduce` is called recursively its work can best be expressed as a recurrence, $W(n) = 2W(\frac{n}{2}) + 1$
             - With input size $n$, `reduce` is called recursively twice on $\frac{n}{2}$ sized inputs so it costs $2W(\frac{n}{2})$
             - The inner function of `rsearch`, `check`, compares the two integers to the key which can be done in constant time so it's cost is $1$
         - Solving the recurrence...
             - $C\texttt{(Root)} = 1$
             - $C\texttt{(1st Level)} = 2(2W(\frac{n}{4}) + 1) + 1 = 2^2W(\frac{n}{4}) + 2 + 1$
             - Cost is increasing so this is leaf dominated. Number of leaves is $2^{\log_2(n)} = n^{\log_2(2)}$
-        - Therefore, the work of `reduce` is $\mathcal{O}(n)$
+        - Therefore, the work is $\mathcal{O}(n)$
     - The **span** of `rsearch`:
         - Since `reduce` is called recursively its span can also best be expressed as a recurrence, $S(n) = S(\frac{n}{2}) + 1$
             - The two recursive calls `reduce` makes on $\frac{n}{2}$ sized inputs can be done at the same time so it costs $S(\frac{n}{2})$
@@ -43,8 +43,8 @@ Place all written answers from `problemset-03.md` here for easier grading.
         - Solving the recurrence...
             - $C\texttt{(Root)} = 1$
             - $C\texttt{(1st Level)} = S(\frac{n}{4}) + 1 + 1$
-            - Cost is neither increasing nor decreasing so this is balanced. Number of levels is $\log_2 n$ and the max cost per level is $1$.
-        - Therefore, the span of `reduce` is $\mathcal{O}(\log_2 n)$
+            - Cost is neither increasing nor decreasing so this is balanced. Number of levels is $\log n$ and the max cost per level is $1$.
+        - Therefore, the span is $\mathcal{O}(\log n)$
 
 
 - **1e.**
@@ -56,7 +56,7 @@ Place all written answers from `problemset-03.md` here for easier grading.
             - $C\texttt{(Root)} = 1$
             - $C\texttt{(1st Level)} = 2(2W(\frac{n}{9}) + 1) + 1 = 2^2W(\frac{n}{9}) + 2 + 1$
             - Cost is increasing so this is leaf dominated. Number of leaves is $2^{\log_9(n)} = n^{\log_9(2)}$
-        - Therefore, the work of `reduce` is $\mathcal{O}(n^{\log_9(2)})$
+        - Therefore, the work is $\mathcal{O}(n^{\log_9(2)})$
     - The **span** of `rsearch` w/ `ureduce`:
         - The span can also best be expressed as a recurrence, $S(n) = S(\frac{n}{3}) + 1$ 
             - The two recursive calls `reduce` makes on $\frac{n}{3}$ sized inputs can be done at the same time so it costs $S(\frac{n}{3})$
@@ -65,11 +65,46 @@ Place all written answers from `problemset-03.md` here for easier grading.
             - $C\texttt{(Root)} = 1$
             - $C\texttt{(1st Level)} = S(\frac{n}{9}) + 1 + 1$
             - Cost is neither increasing nor decreasing so this is balanced. Number of levels is $\log_3 n$ and the max cost per level is $1$.
-        - Therefore, the span of `reduce` is $\mathcal{O}(\log_3 n)$
+        - Therefore, the span is $\mathcal{O}(\log_3 n)$
+
+
+
+-------------
+# WIP
+- **2a.**
+
+    $$
+    \begin{array}{l} 
+    \mathit{extendPositive}~((\ell, b), x) =   
+    \\  
+    ~~~~\texttt{if}~x > 0~\texttt{then}\\  
+    ~~~~~~~~(x, b +\!\!+{} \left\langle\, \ell \,\right\rangle)  
+    \\  
+    ~~~~\texttt{else}  
+    \\  
+    ~~~~~~~~(\ell, b  +\!\!+{} \left\langle\, \ell \,\right\rangle)  
+    \end{array}
+    $$
+
+
+    - dedup A
+	    - let 
+		    - let 
+			    - A’ = map isDup A >>> O(n^2)
+		    - in 
+			    - A’’ = map boolToNumeric A’ >>> O(n)
+	    - in
+		    - (A[i] * A’’[i] : 0 <= i < |A|)
+
+- **2b.**
+
+- **2c.**
+-------------
+
 
 
 - **3b.**
-    - The **work** of `parens_match_iterative` is detailed below. 
+    - The **work** of `parens_match_iterative`: 
         - The work recurrence is $W(n) = W(n-1) + 1$
             - Since `iterate` applies the function to one less item of the list each time it's cost is $W(n-1)$
             - The inner function `parens_update` can apply the if/else statements in constant time so it's cost is just $1$
@@ -78,7 +113,7 @@ Place all written answers from `problemset-03.md` here for easier grading.
             - $C\texttt{(1st Level)} = W(n-2) + 1 + 1$
             - Cost is neither increasing nor decreasing so this is balanced. Number of levels is $n$ and the max cost per level is $1$.
         - Therefore, $W(n) = \mathcal{O}(n)$
-    - The **span** of `parens_match_iterative` is detailed below. 
+    - The **span** of `parens_match_iterative`: 
         - The span recurrence is $S(n) = S(n-1) + 1$
             - Since `iterate` applies the function to one less item of the list each time and it can't be parallelized it's cost is $S(n-1)$
             - The inner function `parens_update` can apply the if/else statements in constant time so it's cost is just $1$
@@ -90,27 +125,46 @@ Place all written answers from `problemset-03.md` here for easier grading.
 
 
 - **3d.**
-    - The **work** recurrence of `parens_match_scan` is:
-        - `map` costs $W(n-1)$ since the function is applied to 1 less item each time it's called
-        - `scan` for prefix sums costs $2W(\frac{n}{2}) + n$ since `reduce` is called 2 times on $\frac{n}{2}$ sized inputs and computing the sums cost $n$
-        - `scan` for finding the minimum cost $2W(\frac{n}{2}) + n$ since `reduce` is called 2 times on $\frac{n}{2}$ sized inputs and finding the minimums cost $n$
-        - $W(n) = W(n-1) + 4W(\frac{n}{2}) + 2n$
-    - The **span** recurrence is:
+    - The **work** recurrence of `parens_match_scan`:
+        - `map` costs $n$ since the function is applied to each item in the list
+        - `scan` (if using contraction) for prefix sums costs $W(\frac{n}{2}) + 1$ since only one recursive call is made on $\frac{n}{2}$ sized input and adding two numbers can be done in constant time
+        - `scan` (if using contraction) for finding the minimum cost $W(\frac{n}{2}) + 1$ since only one recursive call is made on $\frac{n}{2}$ sized input and comparing two integers can be done in constant time
+        - $W(n)...$
+            - $ = n + W(\frac{n}{2}) + 1 + W(\frac{n}{2}) + 1$
+            - $ = W(\frac{n}{2}) + W(\frac{n}{2}) + 2 + n$
+    - The **span** recurrence of `parens_match_scan`:
         - `map` cost $1$ since the function can be applied to the items simultaneously 
-        - `scan` for prefix sums cost $S(\frac{n}{2}) + 1$ since `reduce` can be called on $\frac{n}{2}$ sized inputs at the same time and the sums can be computed at the same time
-        - `scan` for finding the minimum costs $S(\frac{n}{2}) + 1$ work, as well, since `reduce` can be called on $\frac{n}{2}$ sized inputs at the same time and the minimums can be found at the same time
-        - $S(n) = 1 + 2S(\frac{n}{2}) + 2 = 2S(\frac{n}{2}) + 3$
-            - The two $S(\frac{n}{2})$ cannot be removed since the `scan` for prefix sums and the `scan` for minimums cannot be done at the same time. 
+        - `scan` for prefix sums cost $S(\frac{n}{2}) + 1$ since parallelization doesn't change the cost of adding two numbers together
+        - `scan` for finding the minimum costs $S(\frac{n}{2}) + 1$ work, as well, since parallelization doesn't change the cost of comparing two integers either
+        - $S(n)...$
+            - $ = 1 + S(\frac{n}{2}) + 1 + S(\frac{n}{2}) + 1$
+            - $ = S(\frac{n}{2}) + S(\frac{n}{2}) + 3$
 
 
 - **3f.**
-    - The **work** recurrence is:
-        - the base cases cost $1$ since they take constant time 
-        - in the recursive case, computing the left and right side costs $2W(\frac{n}{2})$
-        - in the recursive case, combining the left and right side cost $1$ since it can be done in constant time
-        - $W(n) = 1 + 2W(\frac{n}{2}) + 1 = 2W(\frac{n}{2}) + 2$
-    - The **span** recurrence is:
-        - the base cases cost $1$ since they take constant time 
-        - in the recursive case, computing the left and right side costs $S(\frac{n}{2})$ since the two can be computed at the same time
-        - in the recursive case, combining the left and right side cost $1$ since it can be done in constant time
-        - $S(n) = 1 + S(\frac{n}{2}) + 1 = S(\frac{n}{2}) + 2$
+    - The **work** recurrence of `parens_match_dc_helper`:
+        - `base cases` cost $1$ since they take constant time 
+        - In the `recursive case`...
+            - computing the left and right side costs $2W(\frac{n}{2})$ since `parens_match_dc_helper` is called twice on $\frac{n}{2}$ sized inputs
+            - combining the left and right side cost $1$ since the comparison, addition, and subtraction can be done in constant time
+        - $W(n)...$
+            - $ = 1 + 2W(\frac{n}{2}) + 1 $
+            - $ = 2W(\frac{n}{2}) + 2$
+        - Solving the recurrence $W(n) = 2W(\frac{n}{2}) + 2$...
+            - $C\texttt{(Root)} = 2$
+            - $C\texttt{(1st Level)} = 2(2W(\frac{n}{4}) + 2) + 2 = 2^2W(\frac{n}{4}) + 4 + 2$
+            - Cost is increasing so this is leaf dominated. Number of leaves is $2^{\log_2(n)} = n^{\log_2(2)}$
+        - In summary, $W(n) = 2W(\frac{n}{2}) + 2 = \mathcal{O}(n)$
+    - The **span** recurrence of `parens_match_dc_helper`:
+        - `base cases` cost $1$ since they take constant time 
+        - In the `recursive case`...
+            - computing the left and right side costs $S(\frac{n}{2})$ since computing `parens_match_dc_helper` on the left and right sides can be done at once on $\frac{n}{2}$ sized inputs
+            - combining the left and right side cost $1$ since the comparison, addition, and subtraction can be done in constant time
+        - $S(n)...$
+            - $ = 1 + S(\frac{n}{2}) + 1 $
+            - $ = S(\frac{n}{2}) + 2$
+        - Solving the recurrence $S(n) = S(\frac{n}{2}) + 2$...
+            - $C\texttt{(Root)} = 2$
+            - $C\texttt{(1st Level)} = S(\frac{n}{4}) + 2 + 2$
+            - Cost is neither increasing nor decreasing so this is balanced. Number of levels is $\log n$ and the max cost per level is $2$.
+        - In summary, $S(n) = S(\frac{n}{2}) + 2 = \mathcal{O}(\log n)$

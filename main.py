@@ -8,7 +8,6 @@ import math
 ### PART 1: SEARCHING UNSORTED LISTS
 
 def iterate(f, x, a): 
-    # print('iterate: calling %s x=%s a=%s' % (f.__name__, x, a))     # TODO: rmv before turning in
     # done. do not change me.
     if len(a) == 0:
         return x
@@ -28,7 +27,7 @@ def isearch(L, x):
         #
     #
 
-    return iterate(check, (False, x), L)[0] # NOTE: is this allowed? 
+    return iterate(check, (False, x), L)[0] 
 # isearch
 
 def test_isearch():
@@ -42,7 +41,6 @@ def test_isearch():
 
 
 def reduce(f, id_, a):
-    # print('reduce: calling %s id=%s a=%s' % (f.__name__, id_, a))     # TODO: rmv before turning in
     # done. do not change me.
     if len(a) == 0:
         return id_
@@ -58,24 +56,19 @@ def reduce(f, id_, a):
 
 # search an unordered list L for a key x using reduce
 def rsearch(L, x):
-    def check(key, element):
-        # print('check: calling key=%s element=%s' % (key, element))
-        if key is True or element is True:
-            # print(f"{key} is True OR {element} is True")
+    def check(element1, element2):
+        if element1 is True or element2 is True:
             return True
-        elif key==x:
-            # print(f"{key} is {x}")
+        elif element1==x:
             return True
-        elif element==x:
-            # print(f"{key} is {element}")
+        elif element2==x:
             return True
         else:
-            # print(f"{key} and {element} is False OR {key} and {element} is not {x}")
             return False
         #
     #
 
-    return reduce(check, False, L) # NOTE: is this allowed? 
+    return reduce(check, False, L)
 # research
 
 def test_rsearch():
@@ -155,7 +148,7 @@ def test_parens_match_iterative():
     assert parens_match_iterative(['(', 'a', ')', ')', '(']) == False
     assert parens_match_iterative([]) == True
 # test_parens_match_iterative
-test_parens_match_iterative()
+# test_parens_match_iterative()
 
 
 
@@ -178,13 +171,13 @@ def parens_match_scan(mylist):
     False
     
     """
-    numeric = list(map(paren_map, mylist))  # O(n)
+    numeric = list(map(paren_map, mylist))
 
     # calc prefix sums to see parenthesis pairing at each iteration
-    numeric_psum = scan(plus, 0, numeric)   # O(n) >>> if the fast version
+    numeric_psum = scan(plus, 0, numeric)
 
     # find the min, if prefix sums(!) ever dipped below -1 we got a mismatched parenthesis
-    min_psum = scan(min_f, 0, numeric_psum[0])      # O(n) >>> if the fast version
+    min_psum = scan(min_f, 0, numeric_psum[0])
 
     return min_psum[1]==0
 
@@ -288,25 +281,17 @@ def parens_match_dc_helper(mylist):
         left_side, right_side = [parens_match_dc_helper(mylist[:len(mylist)//2]), parens_match_dc_helper(mylist[len(mylist)//2:])]
 
         # - then compute the solution (R,L) using these solutions, in constant time.
-        # equal number of left paren on left side and right paren on right side >>> whatever's left over
-        if left_side[1] == right_side[0]:
-            
+        if left_side[1] == right_side[0]:       # equal number of left paren on left side and right paren on right side >>> whatever's left over
             return [
                 left_side[0],    # new grand total of right paren: number of right paren on left side
                 right_side[1]    # new grand total of left paren: number of left paren on right side
             ]
-        #
-        # more left paren on left side than right paren on right side
-        elif left_side[1] > right_side[0]:
-
+        elif left_side[1] > right_side[0]:      # more left paren on left side than right paren on right side
             return [
                 left_side[0],     # new grand total of right paren: number of right paren on left side
                 (left_side[1]+right_side[1]) - right_side[0]       # new grand total of left paren: number of left paren on left side + number of left paren on right side then account for right parens on right side
             ]
-        #
-        # less left paren on left side than right paren on the right side
-        elif left_side[1] < right_side[0]:
-
+        elif left_side[1] < right_side[0]:      # less left paren on left side than right paren on the right side
             return [
                 (left_side[0] + right_side[0]) - left_side[1],     # the new grand total of right paren: number of right paren on left side + number of right paren on the right side then accoutn for left paren on left side
                 right_side[1]        # the new grand total of left paren: number of left paren on right side
@@ -325,4 +310,4 @@ def test_parens_match_dc():
     assert parens_match_dc(['(', 'a', ')', ')', '(']) == False
     assert parens_match_dc([]) == True 
 # test_parens_match_dc
-test_parens_match_dc()
+# test_parens_match_dc()
