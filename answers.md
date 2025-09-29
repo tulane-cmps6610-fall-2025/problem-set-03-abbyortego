@@ -137,8 +137,8 @@ Place all written answers from `problemset-03.md` here for easier grading.
         - `scan` for prefix sums cost $S(\frac{n}{2}) + 1$ since parallelization doesn't change the cost of adding two numbers together
         - `scan` for finding the minimum costs $S(\frac{n}{2}) + 1$ work, as well, since parallelization doesn't change the cost of comparing two integers either
         - $S(n)...$
-            - $ = 1 + S(\frac{n}{2}) + 1 + S(\frac{n}{2}) + 1$
-            - $ = S(\frac{n}{2}) + S(\frac{n}{2}) + 3$
+            - $= 1 + S(\frac{n}{2}) + 1 + S(\frac{n}{2}) + 1$
+            - $= S(\frac{n}{2}) + S(\frac{n}{2}) + 3$
 
 
 - **3f.**
@@ -148,8 +148,8 @@ Place all written answers from `problemset-03.md` here for easier grading.
             - computing the left and right side costs $2W(\frac{n}{2})$ since `parens_match_dc_helper` is called twice on $\frac{n}{2}$ sized inputs
             - combining the left and right side cost $1$ since the comparison, addition, and subtraction can be done in constant time
         - $W(n)...$
-            - $ = 1 + 2W(\frac{n}{2}) + 1 $
-            - $ = 2W(\frac{n}{2}) + 2$
+            - $= 1 + 2W(\frac{n}{2}) + 1 $
+            - $= 2W(\frac{n}{2}) + 2$
         - Solving the recurrence $W(n) = 2W(\frac{n}{2}) + 2$...
             - $C\texttt{(Root)} = 2$
             - $C\texttt{(1st Level)} = 2(2W(\frac{n}{4}) + 2) + 2 = 2^2W(\frac{n}{4}) + 4 + 2$
@@ -161,8 +161,8 @@ Place all written answers from `problemset-03.md` here for easier grading.
             - computing the left and right side costs $S(\frac{n}{2})$ since computing `parens_match_dc_helper` on the left and right sides can be done at once on $\frac{n}{2}$ sized inputs
             - combining the left and right side cost $1$ since the comparison, addition, and subtraction can be done in constant time
         - $S(n)...$
-            - $ = 1 + S(\frac{n}{2}) + 1 $
-            - $ = S(\frac{n}{2}) + 2$
+            - $= 1 + S(\frac{n}{2}) + 1 $
+            - $= S(\frac{n}{2}) + 2$
         - Solving the recurrence $S(n) = S(\frac{n}{2}) + 2$...
             - $C\texttt{(Root)} = 2$
             - $C\texttt{(1st Level)} = S(\frac{n}{4}) + 2 + 2$
