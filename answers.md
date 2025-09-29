@@ -129,9 +129,9 @@ Place all written answers from `problemset-03.md` here for easier grading.
         - `map` costs $n$ since the function is applied to each item in the list
         - `scan` (if using contraction) for prefix sums costs $W(\frac{n}{2}) + 1$ since only one recursive call is made on $\frac{n}{2}$ sized input and adding two numbers can be done in constant time
         - `scan` (if using contraction) for finding the minimum cost $W(\frac{n}{2}) + 1$ since only one recursive call is made on $\frac{n}{2}$ sized input and comparing two integers can be done in constant time
-        - $W(n) = $
-            - $ n + W(\frac{n}{2}) + 1 + W(\frac{n}{2}) + 1$
-            - $ W(\frac{n}{2}) + W(\frac{n}{2}) + 2 + n$
+        - $W(n)...$
+            - $= n + W(\frac{n}{2}) + 1 + W(\frac{n}{2}) + 1$
+            - $= W(\frac{n}{2}) + W(\frac{n}{2}) + 2 + n$
     - The **span** recurrence of `parens_match_scan`:
         - `map` cost $1$ since the function can be applied to the items simultaneously 
         - `scan` for prefix sums cost $S(\frac{n}{2}) + 1$ since parallelization doesn't change the cost of adding two numbers together
