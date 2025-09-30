@@ -6,7 +6,7 @@
 
 Place all written answers from `problemset-03.md` here for easier grading.
 
-
+### Part I
 - **1b.**
     - The **work** of `isearch`:
         - Since `iterate` is called recursively, work can best be expressed as a recurrence, $W(n) = W(n-1) + 1$
@@ -68,41 +68,49 @@ Place all written answers from `problemset-03.md` here for easier grading.
         - Therefore, the span is $\mathcal{O}(\log_3 n)$
 
 
+### Part II
+- **2a.**  
+$
+\texttt{dedup A} = \\
+\texttt{let} \\ 
+~~\texttt{iterate}(f, x, a) =
+    \begin{cases} 
+      x & \texttt{if} |a|=0 \\
+      \texttt{iterate}(f, f(x, a[0]), a[:1]) & \texttt{otherwise}\\ 
+    \end{cases} \\
+~~\texttt{countDup}(\texttt{(count, key)}, a) = 
+    \begin{cases} 
+      \texttt{(count+1, key)} & \texttt{if } a=\texttt{key} \\
+      \texttt{(count, key)} & \texttt{otherwise}\\ 
+    \end{cases} \\
+~~\texttt{isDup} (A, a) = \texttt{iterate}(\texttt{countDup}, [0, a], A)[0] \leq 1 \\
+\texttt{in} \\
+~~\texttt{filter} (\texttt{isDup}, A) = \langle a : a \in A | \texttt{isDup}(A, a) \rangle \\
+$
+    - The **work** of `dedup`:
+        - `isDup` calls iterate which costs $W(n-1)$ and `countDup` which costs $1$
+        - `filter` costs $n$ since it's applied to each item in the list
+        - Solving the recurrence: $W(n-1) + 1 + n$
+            - $C\texttt{(Root)} = 1 + n$
+            - $C\texttt{(1st Level)} = W(n-2) + 1 + n + 1 + n$
+            - Cost is neither increasing nor decreasing so this is balanced. Number of levels is $n$ and max cost per level is $n$. 
+        - $W(n) = W(n-1) + 1 + n = \mathcal{O}(n^2)$
+    - The **span** of `dedup`:
+        - `isDup` calls iterate which costs $S(n-1)$ and `countDup` which costs $1$
+        - `filter` costs $1$ since it can be applied to each item in the list in parallel
+        - Solving the recurrence: $S(n-1) + 2$
+            - $C\texttt{(Root)} = 2$
+            - $C\texttt{(1st Level)} = S(n-2) + 2 + 2$
+            - Cost is neither increasing nor decreasing so this is balanced. Number of levels is $n$ and max cost per level is $1$. 
+        - $S(n) = S(n-1) + 2 = \mathcal{O}(n)$
 
--------------
-# WIP
-- **2a.**
-
-    $$
-    \begin{array}{l} 
-    \mathit{extendPositive}~((\ell, b), x) =   
-    \\  
-    ~~~~\texttt{if}~x > 0~\texttt{then}\\  
-    ~~~~~~~~(x, b +\!\!+{} \left\langle\, \ell \,\right\rangle)  
-    \\  
-    ~~~~\texttt{else}  
-    \\  
-    ~~~~~~~~(\ell, b  +\!\!+{} \left\langle\, \ell \,\right\rangle)  
-    \end{array}
-    $$
-
-
-    - dedup A
-	    - let 
-		    - let 
-			    - A’ = map isDup A >>> O(n^2)
-		    - in 
-			    - A’’ = map boolToNumeric A’ >>> O(n)
-	    - in
-		    - (A[i] * A’’[i] : 0 <= i < |A|)
 
 - **2b.**
 
-- **2c.**
--------------
+- **2c.** Yes. Iterate is useful for getting a count of the number of times each item appears in the list and then returning if they're duplicates or not based on that. Filter is useful for filtering out items that are duplicates and returning a list with the distinct items. 
 
 
-
+### Part III
 - **3b.**
     - The **work** of `parens_match_iterative`: 
         - The work recurrence is $W(n) = W(n-1) + 1$
