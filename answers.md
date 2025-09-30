@@ -69,7 +69,8 @@ Place all written answers from `problemset-03.md` here for easier grading.
 
 
 ### Part II
-- **2a.**  
+- **2a.** I was having some issues with getting the below latex to render on github (even though it rendered fine in my VS Code extension), so I have an alternative beneath it that doesn't use latex. 
+
 $\texttt{dedup A} =\\
 \texttt{let}\\ 
 \texttt{iterate}(f, x, a)= 
@@ -85,22 +86,36 @@ $\texttt{dedup A} =\\
 \texttt{isDup} (A, a) = \texttt{iterate}(\texttt{countDup}, [0, a], A)[0] \leq 1\\
 \texttt{in}\\
 \texttt{filter} (\texttt{isDup}, A) = \langle a : a \in A | \texttt{isDup}(A, a) \rangle\\$
-    - The **work** of `dedup`:
-        - `isDup` calls iterate which costs $W(n-1)$ and `countDup` which costs $1$
-        - `filter` costs $n$ since it's applied to each item in the list
-        - Solving the recurrence: $W(n-1) + 1 + n$
-            - $C\texttt{(Root)} = 1 + n$
-            - $C\texttt{(1st Level)} = W(n-2) + 1 + n + 1 + n$
-            - Cost is neither increasing nor decreasing so this is balanced. Number of levels is $n$ and max cost per level is $n$. 
-        - $W(n) = W(n-1) + 1 + n = \mathcal{O}(n^2)$
-    - The **span** of `dedup`:
-        - `isDup` calls iterate which costs $S(n-1)$ and `countDup` which costs $1$
-        - `filter` costs $1$ since it can be applied to each item in the list in parallel
-        - Solving the recurrence: $S(n-1) + 2$
-            - $C\texttt{(Root)} = 2$
-            - $C\texttt{(1st Level)} = S(n-2) + 2 + 2$
-            - Cost is neither increasing nor decreasing so this is balanced. Number of levels is $n$ and max cost per level is $1$. 
-        - $S(n) = S(n-1) + 2 = \mathcal{O}(n)$
+
+``` 
+dedup A = 
+    let
+        iterate(f, x, a) = 
+            x   if |a| = 0
+            iterate(f, f(x, a[0]), a[:1])   otherwise
+        countDup((count, key), a) = 
+            (count+1, key)  if a = key
+            (count, key)    otherwise
+        isDup(A, a) = iterate(countDup, [0, a], A)[0] <= 1
+    in
+        filter(isDup, A) = (a: a in A | isDup(A, a))
+```
+- The **work** of `dedup`:
+    - `isDup` calls iterate which costs $W(n-1)$ and `countDup` which costs $1$
+    - `filter` costs $n$ since it's applied to each item in the list
+    - Solving the recurrence: $W(n-1) + 1 + n$
+        - $C\texttt{(Root)} = 1 + n$
+        - $C\texttt{(1st Level)} = W(n-2) + 1 + n + 1 + n$
+        - Cost is neither increasing nor decreasing so this is balanced. Number of levels is $n$ and max cost per level is $n$. 
+    - $W(n) = W(n-1) + 1 + n = \mathcal{O}(n^2)$
+- The **span** of `dedup`:
+    - `isDup` calls iterate which costs $S(n-1)$ and `countDup` which costs $1$
+    - `filter` costs $1$ since it can be applied to each item in the list in parallel
+    - Solving the recurrence: $S(n-1) + 2$
+        - $C\texttt{(Root)} = 2$
+        - $C\texttt{(1st Level)} = S(n-2) + 2 + 2$
+        - Cost is neither increasing nor decreasing so this is balanced. Number of levels is $n$ and max cost per level is $1$. 
+    - $S(n) = S(n-1) + 2 = \mathcal{O}(n)$
 
 
 - **2b.**
