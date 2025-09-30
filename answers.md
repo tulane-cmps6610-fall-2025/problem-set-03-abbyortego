@@ -70,7 +70,7 @@ Place all written answers from `problemset-03.md` here for easier grading.
 
 ### Part II
 - **2a.**  
-$
+$$
 \texttt{dedup A} =\\
 \texttt{let}\\ 
 ~~\texttt{iterate}(f, x, a)= 
@@ -86,7 +86,7 @@ $
 ~~\texttt{isDup} (A, a) = \texttt{iterate}(\texttt{countDup}, [0, a], A)[0] \leq 1\\
 \texttt{in}\\
 ~~\texttt{filter} (\texttt{isDup}, A) = \langle a : a \in A | \texttt{isDup}(A, a) \rangle\\
-$
+$$
     - The **work** of `dedup`:
         - `isDup` calls iterate which costs $W(n-1)$ and `countDup` which costs $1$
         - `filter` costs $n$ since it's applied to each item in the list
