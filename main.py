@@ -56,6 +56,7 @@ def reduce(f, id_, a):
 
 # search an unordered list L for a key x using reduce
 def rsearch(L, x):
+
     def check(element1, element2):
         if element1 is True or element2 is True:
             return True

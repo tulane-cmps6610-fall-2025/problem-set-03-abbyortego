@@ -70,8 +70,7 @@ Place all written answers from `problemset-03.md` here for easier grading.
 
 ### Part II
 - **2a.**  
-$
-\texttt{dedup A} =\\
+$\texttt{dedup A} =\\
 \texttt{let}\\ 
 \texttt{iterate}(f, x, a)= 
     \begin{cases} 
@@ -85,8 +84,7 @@ $
     \end{cases}\\
 \texttt{isDup} (A, a) = \texttt{iterate}(\texttt{countDup}, [0, a], A)[0] \leq 1\\
 \texttt{in}\\
-\texttt{filter} (\texttt{isDup}, A) = \langle a : a \in A | \texttt{isDup}(A, a) \rangle\\
-$
+\texttt{filter} (\texttt{isDup}, A) = \langle a : a \in A | \texttt{isDup}(A, a) \rangle\\$
     - The **work** of `dedup`:
         - `isDup` calls iterate which costs $W(n-1)$ and `countDup` which costs $1$
         - `filter` costs $n$ since it's applied to each item in the list
@@ -106,6 +104,7 @@ $
 
 
 - **2b.**
+
 
 - **2c.** Yes. Iterate is useful for getting a count of the number of times each item appears in the list and then returning if they're duplicates or not based on that. Filter is useful for filtering out items that are duplicates and returning a list with the distinct items. 
 
