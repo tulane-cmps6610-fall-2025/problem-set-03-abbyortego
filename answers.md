@@ -69,8 +69,9 @@ Place all written answers from `problemset-03.md` here for easier grading.
 
 
 ### Part II
-- **2a.** I was having some issues with getting the below latex to render on github (even though it rendered fine in my VS Code extension), so I have an alternative beneath it that doesn't use latex. 
+I was having some issues with getting the below latex for this part to render on github (even though they rendered fine in my VS Code extension), so I have an alternative beneath them that doesn't use latex.
 
+- **2a.**  
 $\texttt{dedup A} =\\
 \texttt{let}\\ 
 \texttt{iterate}(f, x, a)= 
@@ -84,9 +85,9 @@ $\texttt{dedup A} =\\
       \texttt{(count, key)} & \texttt{otherwise}\\ 
     \end{cases}\\
 \texttt{isDup} (A, a) = \texttt{iterate}(\texttt{countDup}, [0, a], A)[0] \leq 1\\
+\texttt{filter} (f, A) = \langle a : a \in A | f(A, a) \rangle\\
 \texttt{in}\\
-\texttt{filter} (\texttt{isDup}, A) = \langle a : a \in A | \texttt{isDup}(A, a) \rangle\\$
-
+\texttt{dedups} = \texttt{filter}(\texttt{isDup}, A)$
 ``` 
 dedup A = 
     let
@@ -97,8 +98,9 @@ dedup A =
             (count+1, key)  if a = key
             (count, key)    otherwise
         isDup(A, a) = iterate(countDup, [0, a], A)[0] <= 1
+        filter(f, A) = [a: a in A | f(A, a)]
     in
-        filter(isDup, A) = (a: a in A | isDup(A, a))
+        dedups = filter(isDup, A)
 ```
 - The **work** of `dedup`:
     - `isDup` calls iterate which costs $W(n-1)$ and `countDup` which costs $1$
@@ -114,14 +116,64 @@ dedup A =
     - Solving the recurrence: $S(n-1) + 2$
         - $C\texttt{(Root)} = 2$
         - $C\texttt{(1st Level)} = S(n-2) + 2 + 2$
-        - Cost is neither increasing nor decreasing so this is balanced. Number of levels is $n$ and max cost per level is $1$. 
+        - Cost is neither increasing nor decreasing so this is balanced. Number of levels is $n$ and max cost per level is $2$. 
     - $S(n) = S(n-1) + 2 = \mathcal{O}(n)$
 
 
 - **2b.**
+$\texttt{dedup A} =\\
+\texttt{let}\\ 
+\texttt{iterate}(f, x, a)= 
+    \begin{cases} 
+      x & \texttt{if} |a|=0\\
+      \texttt{iterate}(f, f(x, a[0]), a[:1]) & \texttt{otherwise}\\ 
+    \end{cases}\\
+\texttt{countDup}(\texttt{(count, key)}, a)= 
+    \begin{cases} 
+      \texttt{(count+1, key)} & \texttt{if } a=\texttt{key}\\
+      \texttt{(count, key)} & \texttt{otherwise}\\ 
+    \end{cases}\\
+\texttt{isDup} (A, a) = \texttt{iterate}(\texttt{countDup}, [0, a], A)[0] \leq 1\\
+\texttt{filter} (f, A) = \langle a : a \in A | f(A, a) \rangle\\
+\texttt{map}(f, A) = \langle \texttt{filter}(A, a) : a \in A \rangle\\
+\texttt{in}\\
+\texttt{multi-dedups} = \texttt{map}(\texttt{isDup}, A)$
+``` 
+multi-dedup A = 
+    let
+        iterate(f, x, a) = 
+            x   if |a| = 0
+            iterate(f, f(x, a[0]), a[:1])   otherwise
+        countDup((count, key), a) = 
+            (count+1, key)  if a = key
+            (count, key)    otherwise
+        isDup(A, a) = iterate(countDup, [0, a], A)[0] <= 1
+        filter(f, A) = [a: a in A | f(A, a)]
+        map(f, A) = [filter(f, a): a in A]
+    in
+        multi-dedups = map(isDup, A)  
+```
+- The **work** of `multi-dedup`:
+    - `isDup` calls iterate which costs $W(n-1)$ and `countDup` which costs $1$
+    - `filter` costs $n$ since it's applied to each item in the list
+    - `map` also costs $n$ since it's applied to each list in the list
+    - Solving the recurrence: $W(n-1) + 1 + n + n$
+        - $C\texttt{(Root)} = 1 + n + n$
+        - $C\texttt{(1st Level)} = W(n-2) + 1 + n + n + 1 + n + n$
+        - Cost is neither increasing nor decreasing so this is balanced. Number of levels is $n$ and max cost per level is $n^2$ (cost of `filter` and `map`). 
+    - $W(n) = W(n-1) + 1 + n + n = \mathcal{O}(n^3)$
+- The **span** of `multi-dedup`:
+    - `isDup` calls iterate which costs $S(n-1)$ and `countDup` which costs $1$
+    - `filter` costs $1$ since it can be applied to each item in the list in parallel
+    - `map` also costs $1$ since it's applied to each list in the list in parallel
+    - Solving the recurrence: $S(n-1) + 3$
+        - $C\texttt{(Root)} = 3$
+        - $C\texttt{(1st Level)} = S(n-2) + 3 + 3$
+        - Cost is neither increasing nor decreasing so this is balanced. Number of levels is $n$ and max cost per level is $3$. 
+    - $S(n) = S(n-1) + 3 = \mathcal{O}(n)$
 
 
-- **2c.** Yes. Iterate is useful for getting a count of the number of times each item appears in the list and then returning if they're duplicates or not based on that. Filter is useful for filtering out items that are duplicates and returning a list with the distinct items. 
+- **2c.** Yes. Iterate is useful for getting a count of the number of times each item appears in the list and then returning if they're duplicates or not based on that. Filter is useful for filtering out items that are duplicates and returning a list with the distinct items. Map is useful for mapping the filtering and counting scheme to each list in (2b).
 
 
 ### Part III
